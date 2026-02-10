@@ -1,0 +1,48 @@
+{
+  "name": "@uistate/react",
+  "version": "1.0.0",
+  "description": "React adapter for @uistate/core — usePath, useIntent, useAsync hooks and EventStateProvider",
+  "main": "index.js",
+  "module": "index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "default": "./index.js"
+    },
+    "./eventStateReact": {
+      "import": "./eventStateReact.js",
+      "default": "./eventStateReact.js"
+    }
+  },
+  "files": [
+    "index.js",
+    "eventStateReact.js",
+    "README.md"
+  ],
+  "peerDependencies": {
+    "@uistate/core": ">=5.0.0",
+    "react": ">=18.0.0"
+  },
+  "keywords": [
+    "uistate",
+    "react",
+    "state-management",
+    "hooks",
+    "useSyncExternalStore",
+    "event-driven",
+    "dot-path",
+    "external-store",
+    "adapter"
+  ],
+  "author": "Ajdin Imsirovic",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ImsirovicAjdin/uistate-react.git"
+  },
+  "homepage": "https://uistate.com/react.html",
+  "bugs": {
+    "url": "https://github.com/ImsirovicAjdin/uistate-react/issues"
+  }
+}

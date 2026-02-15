@@ -4,7 +4,7 @@ import { createContext, useContext, useMemo, useSyncExternalStore } from 'react'
 const EventStateContext = createContext(null);
 
 /**
- * Provider — makes a store available to all child components via hooks.
+ * Provider: makes a store available to all child components via hooks.
  * The store is created *outside* React. The provider is pure dependency injection.
  *
  * @param {{ store: object, children: React.ReactNode }} props
@@ -18,7 +18,7 @@ export function EventStateProvider({ store, children }) {
 }
 
 /**
- * useStore — returns the EventState store from context.
+ * useStore: returns the EventState store from context.
  * Throws if called outside an EventStateProvider.
  *
  * @returns {object} The EventState store
@@ -34,11 +34,11 @@ export function useStore() {
 }
 
 /**
- * usePath — subscribe to a dot-path in the store.
+ * usePath: subscribe to a dot-path in the store.
  * Re-renders the component only when the value at that path changes.
  * Uses React 18's useSyncExternalStore for concurrent-mode safety.
  *
- * @param {string} path — dot-separated state path (e.g. 'state.tasks')
+ * @param {string} path: dot-separated state path (e.g. 'state.tasks')
  * @returns {any} The current value at the path
  */
 export function usePath(path) {
@@ -58,10 +58,10 @@ export function usePath(path) {
 }
 
 /**
- * useIntent — returns a stable function that publishes a value to a path.
+ * useIntent: returns a stable function that publishes a value to a path.
  * Memoized so it won't cause unnecessary re-renders when passed as a prop.
  *
- * @param {string} path — dot-separated intent path (e.g. 'intent.addTask')
+ * @param {string} path: dot-separated intent path (e.g. 'intent.addTask')
  * @returns {(value: any) => any} A setter function
  */
 export function useIntent(path) {
@@ -73,11 +73,11 @@ export function useIntent(path) {
 }
 
 /**
- * useWildcard — subscribe to a wildcard path (e.g. 'state.*').
+ * useWildcard: subscribe to a wildcard path (e.g. 'state.*').
  * Re-renders whenever any child of that path changes.
  * The returned value is the parent object at the path prefix.
  *
- * @param {string} wildcardPath — e.g. 'state.tasks.*' or 'state.*'
+ * @param {string} wildcardPath: e.g. 'state.tasks.*' or 'state.*'
  * @returns {any} The current value at the parent path
  */
 export function useWildcard(wildcardPath) {
@@ -100,10 +100,10 @@ export function useWildcard(wildcardPath) {
 }
 
 /**
- * useAsync — trigger an async operation and subscribe to its status.
+ * useAsync: trigger an async operation and subscribe to its status.
  * Returns { data, status, error, execute, cancel }.
  *
- * @param {string} path — base path for the async operation
+ * @param {string} path: base path for the async operation
  * @returns {{ data: any, status: string, error: any, execute: Function, cancel: Function }}
  */
 export function useAsync(path) {

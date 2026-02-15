@@ -1,6 +1,6 @@
 # @uistate/react
 
-React adapter for [@uistate/core](https://www.npmjs.com/package/@uistate/core). Five hooks and a provider — that's the entire API.
+React adapter for [@uistate/core](https://www.npmjs.com/package/@uistate/core). Five hooks and a provider; that's the entire API.
 
 ## Install
 
@@ -45,7 +45,7 @@ function App() {
 
 ### `<EventStateProvider store={store}>`
 
-Makes a store available to all descendant hooks via React Context. The store is created outside React — the provider is pure dependency injection, not a state container.
+Makes a store available to all descendant hooks via React Context. The store is created outside React; the provider is pure dependency injection, not a state container.
 
 ```jsx
 <EventStateProvider store={store}>
@@ -140,7 +140,7 @@ function Filters() {
 }
 ```
 
-Business logic lives in subscribers — testable without React:
+Business logic lives in subscribers and is testable without React:
 
 ```js
 store.subscribe('intent.addTask', (text) => {
@@ -149,11 +149,34 @@ store.subscribe('intent.addTask', (text) => {
 });
 ```
 
+## Testing
+
+Two-layer testing architecture:
+
+**`self-test.js`**: Zero-dependency self-test (22 assertions). Runs automatically on `npm install` via `postinstall`. Tests the store-side patterns that the hooks consume: `subscribe + get` (usePath), stable setter (useIntent), wildcard subscribe (useWildcard), `setAsync` lifecycle (useAsync), external store contract (useSyncExternalStore compat), and batch (React 18 compat).
+
+```bash
+node self-test.js
+```
+
+**`tests/react.test.js`**: Integration tests via `@uistate/event-test` (14 tests). Tests the same patterns through `createEventTest` and `runTests`, plus type generation from React app state shapes.
+
+```bash
+npm test
+```
+
+| Suite | Assertions | Dependencies |
+|-------|-----------|-------------|
+| `self-test.js` | 22 | `@uistate/core` only |
+| `tests/react.test.js` | 14 | `@uistate/event-test`, `@uistate/core` |
+
+> **Note:** Since the React adapter uses JSX and React hooks, the self-test verifies the store-side patterns (EventState as IR). The hooks are thin wrappers around `store.subscribe` + `useSyncExternalStore`: testing the IR proves the hooks will work. JSX/React-specific behavior (re-renders, concurrent mode) requires a React test environment.
+
 ## Why a separate package?
 
-- **Zero cost if you don't use React** — `@uistate/core` stays framework-free
-- **React is a peer dependency** — not bundled, no version conflicts
-- **Tiny** — ~50 lines of code, no dependencies beyond React and the core store
+- **Zero cost if you don't use React**: `@uistate/core` stays framework-free
+- **React is a peer dependency**: not bundled, no version conflicts
+- **Tiny**: ~50 lines of code, no dependencies beyond React and the core store
 
 ## License
 

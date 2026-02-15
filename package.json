@@ -1,10 +1,15 @@
 {
   "name": "@uistate/react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React adapter for @uistate/core — usePath, useIntent, useAsync hooks and EventStateProvider",
   "main": "index.js",
   "module": "index.js",
   "type": "module",
+  "scripts": {
+    "postinstall": "node self-test.js",
+    "test": "node tests/react.test.js",
+    "self-test": "node self-test.js"
+  },
   "exports": {
     ".": {
       "import": "./index.js",
@@ -18,6 +23,7 @@
   "files": [
     "index.js",
     "eventStateReact.js",
+    "self-test.js",
     "README.md"
   ],
   "peerDependencies": {
